@@ -33,7 +33,7 @@ has api_secret => (
 
 has '+base_url' => (
     is      => 'ro',
-    default => 'https://bleutrade.com/api/v2/',
+    default => 'https://bleutrade.com/api/v2',
     #help   => 'https://bleutrade.com/help/API',
 );
 
@@ -62,9 +62,11 @@ around req => fun($orig, $self, $req, @rest) {
     return $self->$orig($req, @rest);
 };
 
-method getmarkets { $self->get('getmarkets') };
+method getmarkets { $self->get('/public/getmarkets') };
 
-method dcrbtc { $self->get('public/getticker?market=DCR_BTC') };
+method getmarketsummaries { $self->get('/public/getmarketsummaries') };
+
+method dcrbtc { $self->get('/public/getticker?market=DCR_BTC') };
 
 # ABSTRACT: BlueTrade (https://bleutrade.com) API bindings
 
