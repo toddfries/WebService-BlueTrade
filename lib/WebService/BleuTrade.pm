@@ -74,7 +74,7 @@ method dcrbtc { $self->get('/public/getticker?market=DCR_BTC') };
 
     use WebService::BleuTrade;
 
-    my $bt = WebService::BlockChain::Info->new(
+    my $bt = WebService::BlueTrade->new(
         api_key    => 'API_KEY',
         api_secret => 'API_SECRET',
         logger     => Log::Tiny->new('/tmp/coin.log'), # optional

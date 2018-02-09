@@ -3,8 +3,8 @@ require 5.008008;
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-  'NAME' => 'WebService::BlockChain::Info',
-  'VERSION_FROM' => 'lib/WebService/BlockChain/Info.pm',
+  'NAME' => 'WebService::BlueTrade',
+  'VERSION_FROM' => 'lib/WebService/BlueTrade.pm',
   'PREREQ_PM' => {
                    'Carp' => 0,
                    'Moose' => '1.15',
