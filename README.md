@@ -30,6 +30,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
+```
 # Copyright (c) 2018 Todd T. Fries <todd@fries.net>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -43,6 +44,7 @@ COPYRIGHT AND LICENCE
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+```
 
 If you find this useful and wish to donate, I accept donations:
 
