@@ -59,7 +59,6 @@ around req => fun($orig, $self, $req, @rest) {
     	my $signature = hmac_hex('SHA512', $req->uri, $self->api_secret);
     	$req->header('apisign:' => $signature);
     }
-    print "Heading to ->$orig(".$req->uri.",...)\n";
     return $self->$orig($req, @rest);
 };
 
