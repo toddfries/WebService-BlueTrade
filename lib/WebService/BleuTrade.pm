@@ -88,7 +88,27 @@ method getmarketsummaries { $self->get('/public/getmarketsummaries') };
 
 method getbalances { $self->get('/account/getbalances') };
 
-method getorders { $self->get('/account/getorders') };
+method getorders($market, $ostat, $otype, $depth) {
+	if (!defined($market)) {
+		$market = "ALL";
+	}
+	if (!defined($ostat)) {
+		$ostat = "OPEN";
+	}
+	if (!defined($otype)) {
+		$otype = "ALL";
+	}
+	if (!defined($depth)) {
+		$depth = 500;
+	}
+	my $uri = '/account/getorders';
+	$uri .= "?market=${market}";
+	$uri .= "&orderstatus=${ostat}";
+	$uri .= "&ordertype=${otype}";
+	$uri .= "&depth=500";
+	#printf "getorders: uri='%s'\n", $uri;
+	$self->get($uri);
+};
 
 method getorderhistory { $self->get('/account/getorderhistory') };
 
