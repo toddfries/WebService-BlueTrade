@@ -45,7 +45,9 @@ sub BUILD {
 }
 
 around req => fun($orig, $self, $req, @rest) {
-    if (defined($self->api_key)) {
+    if (defined($self->api_key) && ! ($req->uri =~ /\/public\//)) {
+	#printf "req->%s .. api_key = '%s', api_secret = '%s'\n", $orig,
+	#	$self->api_key, $self->api_secret;
     	my $nonce = time();
 	my $uri = $req->uri;
 	if ($uri =~ /\?/) {
@@ -55,18 +57,51 @@ around req => fun($orig, $self, $req, @rest) {
 	}
 	$uri .= "apikey=".$self->api_key;
 	$uri .= "&nonce=".$nonce;
+	#printf "req->%s .. uri = '%s'\n", $uri;
 	$req->uri($uri);
-    	my $signature = hmac_hex('SHA512', $req->uri, $self->api_secret);
-    	$req->header('apisign:' => $signature);
+    	my $signature;
+	eval {
+		$signature = hmac_hex('SHA512',
+			$self->api_secret,
+			$req->uri,
+		);
+	};
+	if ($@) {
+		print "around req(..): $@\n";
+		return undef;
+	}
+	#printf "around req(..): apisign = '%s'\n", $signature;
+    	$req->header('apisign' => $signature);
     }
     return $self->$orig($req, @rest);
 };
+
+# Public info
+
+method getcurrencies { $self->get('/public/getcurrencies') };
 
 method getmarkets { $self->get('/public/getmarkets') };
 
 method getmarketsummaries { $self->get('/public/getmarketsummaries') };
 
+# Private info
+
+method getbalances { $self->get('/account/getbalances') };
+
+method getorders { $self->get('/account/getorders') };
+
+method getorderhistory { $self->get('/account/getorderhistory') };
+
+method getwithdrawhistory { $self->get('/account/getwithdrawhistory') };
+
+method getdepositaddress($c) {
+	$self->get('/account/getdepositaddress?currency='.${c})
+};
+
+# pseudo methods that are munging of hardcoded parameters and bt api
+
 method dcrbtc { $self->get('/public/getticker?market=DCR_BTC') };
+
 
 # ABSTRACT: BlueTrade (https://bleutrade.com) API bindings
 
