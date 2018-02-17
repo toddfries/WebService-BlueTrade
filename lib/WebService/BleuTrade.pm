@@ -82,7 +82,37 @@ method getcurrencies { $self->get('/public/getcurrencies') };
 
 method getmarkets { $self->get('/public/getmarkets') };
 
+method getticker($market) { $self->get('/getticker?market=${market}') };
+
 method getmarketsummaries { $self->get('/public/getmarketsummaries') };
+
+method getmarketsummary($market) {
+	$self->get('/public/getmarketsummary?market=${market}');
+};
+
+method getorderbook($market, $type, $depth) {
+	my $call = '/public/getorderbook?market=${market}&type=${type}';
+	if (defined($depth)) {
+		$call .= "&depth=${depth}";
+	}
+	$self->get($call);
+}
+
+method getmarkethistory($market, $count) {
+	my $call = '/public/getmarkethistory?market=${market}';
+	if (defined($count)) {
+		$call .= '&count=${count}';
+	}
+	$self->get($call);
+}
+
+method getcandles($market, $period, $count, $lasthours) {
+	my $call = '/public/getcandles?market=${market}';
+	$call .= '&period=${period}';
+	$call .= '&count=${count}';
+	$call .= '&lasthours=${lasthours}';
+	$self->get($call);
+}
 
 # Private info
 
