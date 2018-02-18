@@ -91,10 +91,11 @@ method getmarketsummary($market) {
 };
 
 method getorderbook($market, $type, $depth) {
-	my $call = '/public/getorderbook?market=${market}&type=${type}';
+	my $call = "/public/getorderbook?market=${market}&type=${type}";
 	if (defined($depth)) {
 		$call .= "&depth=${depth}";
 	}
+	#print "getorderbook call=$call\n";
 	$self->get($call);
 }
 
