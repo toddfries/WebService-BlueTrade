@@ -124,7 +124,7 @@ method getorders($market, $ostat, $otype, $depth) {
 		$market = "ALL";
 	}
 	if (!defined($ostat)) {
-		$ostat = "OPEN";
+		$ostat = "ALL";
 	}
 	if (!defined($otype)) {
 		$otype = "ALL";
@@ -141,7 +141,9 @@ method getorders($market, $ostat, $otype, $depth) {
 	$self->get($uri);
 };
 
-method getorderhistory { $self->get('/account/getorderhistory') };
+method getorderhistory($oid) {
+	$self->get('/account/getorderhistory?orderid=${oid}')
+};
 
 method getwithdrawhistory { $self->get('/account/getwithdrawhistory') };
 
