@@ -82,12 +82,12 @@ method getcurrencies { $self->get('/public/getcurrencies') };
 
 method getmarkets { $self->get('/public/getmarkets') };
 
-method getticker($market) { $self->get('/getticker?market=${market}') };
+method getticker($market) { $self->get("/getticker?market=${market}") };
 
 method getmarketsummaries { $self->get('/public/getmarketsummaries') };
 
 method getmarketsummary($market) {
-	$self->get('/public/getmarketsummary?market=${market}');
+	$self->get("/public/getmarketsummary?market=${market}");
 };
 
 method getorderbook($market, $type, $depth) {
@@ -100,18 +100,18 @@ method getorderbook($market, $type, $depth) {
 }
 
 method getmarkethistory($market, $count) {
-	my $call = '/public/getmarkethistory?market=${market}';
+	my $call = "/public/getmarkethistory?market=${market}";
 	if (defined($count)) {
-		$call .= '&count=${count}';
+		$call .= "&count=${count}";
 	}
 	$self->get($call);
 }
 
 method getcandles($market, $period, $count, $lasthours) {
-	my $call = '/public/getcandles?market=${market}';
-	$call .= '&period=${period}';
-	$call .= '&count=${count}';
-	$call .= '&lasthours=${lasthours}';
+	my $call = "/public/getcandles?market=${market}";
+	$call .= "&period=${period}";
+	$call .= "&count=${count}";
+	$call .= "&lasthours=${lasthours}";
 	$self->get($call);
 }
 
@@ -146,7 +146,7 @@ method getorderhistory { $self->get('/account/getorderhistory') };
 method getwithdrawhistory { $self->get('/account/getwithdrawhistory') };
 
 method getdepositaddress($c) {
-	$self->get('/account/getdepositaddress?currency='.${c})
+	$self->get("/account/getdepositaddress?currency=${c}")
 };
 
 # pseudo methods that are munging of hardcoded parameters and bt api
